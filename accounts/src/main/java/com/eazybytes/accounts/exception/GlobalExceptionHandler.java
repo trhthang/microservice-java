@@ -14,13 +14,26 @@ import com.eazybytes.accounts.dto.ErrorResponseDto;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomerAlreadyExistsException.class)
-    public ResponseEntity<ErrorResponseDto> handleCustomerAlreadyExistExeption(CustomerAlreadyExistsException exception, WebRequest webRequest){
+    public ResponseEntity<ErrorResponseDto> handleCustomerAlreadyExistException(CustomerAlreadyExistsException exception, WebRequest webRequest){
         
         ErrorResponseDto errorResponseDto = new ErrorResponseDto(
             webRequest.getDescription(false),
             HttpStatus.BAD_REQUEST, 
             exception.getMessage(),
             LocalDateTime.now()
+        );
+
+        return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponseDto> handleResourceNotFoundException(ResourceNotFoundException exception, WebRequest webRequest){
+
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+                webRequest.getDescription(false),
+                HttpStatus.NOT_FOUND,
+                exception.getMessage(),
+                LocalDateTime.now()
         );
 
         return new ResponseEntity<>(errorResponseDto, HttpStatus.BAD_REQUEST);
