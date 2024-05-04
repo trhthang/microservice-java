@@ -12,11 +12,11 @@ import lombok.ToString;
 @Entity
 @Getter @Setter @ToString @AllArgsConstructor @NoArgsConstructor
 public class Accounts extends BaseEntity{
-    
-    @Id
+
     @Column(name = "customer_id")
     private Long customerId;
 
+    @Id
     @Column(name = "account_number")
     private Long accountNumber;
 
